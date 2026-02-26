@@ -1,0 +1,51 @@
+<section class="main-container">
+    <div [class.loader]="loadingSignal()" class="captcha-container">
+        <div class="header">
+            <h1 class="title">Put the shapes in the</h1>
+            <p class="subtitle">correct holes</p>
+        </div>
+
+        @if (errorSignal()) {
+            <div [class.jiggle]="errorSignal()" class="error-message">
+                <span>Try again!</span>
+            </div>
+        }
+
+        @if (loadingSignal()) {
+            <div class="loader-container">
+                <div class="loader"></div>
+            </div>
+        } @else {
+            <div class="content">
+                <div class="shapes">
+                    <div class="square-drag-wrapper" cdkDragBoundary=".content" [cdkDragFreeDragPosition]="squarePosition()"
+                         cdkDrag (cdkDragEnded)="onSquareDragEnded($event)">
+                        <div [class.drop-in]="squareDropInAnimation()" class="square"></div>
+                    </div>
+                    <div class="cylinder-drag-wrapper" cdkDragBoundary=".content" [cdkDragFreeDragPosition]="cylinderPosition()"
+                         cdkDrag (cdkDragEnded)="onCylinderDragEnded($event)">
+                        <div [class.drop-in]="cylinderDropInAnimation()" class="cylinder"></div>
+                    </div>
+                    <div class="triangle-drag-wrapper" cdkDragBoundary=".content" [cdkDragFreeDragPosition]="trianglePosition()"
+                         cdkDrag (cdkDragEnded)="onTriangleDragEnded($event)">
+                        <div [class.drop-in]="triangleDropInAnimation()" class="triangle"></div>
+                    </div>
+                </div>
+
+                <div class="drop-box-container">
+                    <img ngSrc="/assets/holes.png" alt="drop container" draggable="false" height="130" width="320" priority>
+                </div>
+            </div>
+
+            <div class="footer">
+                <button (click)="resetClick()" class="retry">
+                    <img ngSrc="/assets/refresh.png" draggable="false" alt="Retry" height="20" width="20">
+                </button>
+
+                <button (click)="verifyClick()" class="verify">
+                    Verify
+                </button>
+            </div>
+        }
+    </div>
+</section>

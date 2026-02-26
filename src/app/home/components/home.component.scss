@@ -1,0 +1,235 @@
+:host {
+    font-family: 'Press Start 2P', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .captcha-container {
+        display: block;
+        margin-top: 100px;
+        border: black solid 2px;
+        width: 350px;
+        overflow: hidden;
+        background: rgba(232, 232, 230);
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+
+        &.loader {
+            .loader-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 380px;
+
+                .loader {
+                    height: 40px;
+                    aspect-ratio: 3;
+                    background: linear-gradient(#ff1818 0 0) left/33% 100% no-repeat,
+                    conic-gradient(
+                            from -90deg at 25px 8px,
+                            #fff 0deg 135deg,
+                            #666 135deg 270deg,
+                            #aaa 270deg 360deg
+                    );
+                    background-blend-mode: multiply;
+                    -webkit-mask: linear-gradient(to bottom right, #0000 6px, #000 0 calc(100% - 13px), #0000 0),
+                    conic-gradient(
+                            from -90deg at right 5px bottom 5px,
+                            #000 0deg 90deg,
+                            #0000 90deg 360deg
+                    );
+                    background-size: 33.333% 100%;
+                    mask-size: 33.333% 100%;
+                    mask-composite: intersect;
+                    animation: loader steps(3) 1.5s infinite;
+                }
+
+                @keyframes loader {
+                    to {
+                        background-position: 150% 0
+                    }
+                }
+            }
+        }
+
+        .header {
+            color: white;
+            background: rgba(53, 124, 249);
+            padding: 16px 16px 16px 24px;
+            border-bottom: 3px solid black;
+
+            .title {
+                font-size: 8px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+        }
+
+        .error-message {
+            display: flex;
+            text-align: center;
+            color: white;
+            padding: 8px;
+            font-size: 12px;
+            background: rgb(191, 14, 7);
+            border-bottom: black solid 2px;
+
+            &.jiggle {
+                animation: jiggle .5s ease-out;
+
+                @keyframes jiggle {
+                    0% {
+                        transform: translate3d(0, 0, 0);
+                    }
+                    20% {
+                        transform: translate3d(5px, 0, 0);
+                    }
+                    40% {
+                        transform: translate3d(-5px, 0, 0);
+                    }
+                    60% {
+                        transform: translate3d(5px, 0, 0);
+                    }
+                    100% {
+                        transform: translate3d(0, 0, 0);
+                    }
+                }
+            }
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 300px;
+            padding: 16px 16px 0 16px;
+
+            .shapes {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+
+                .square-drag-wrapper {
+                    z-index: 1;
+                    cursor: grabbing;
+                    width: 44px;
+                    height: 44px;
+                    overflow: hidden;
+
+                    .square {
+                        width: 40px;
+                        height: 40px;
+                        border: solid 2px black;
+                        background: red;
+                        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+                        position: relative;
+                        overflow: hidden;
+                        transition: box-shadow .2s;
+
+                        &.drop-in {
+                            animation: dropInBox .7s cubic-bezier(.4, 0, .2, 1) forwards;
+                        }
+                    }
+                }
+
+                .cylinder-drag-wrapper {
+                    z-index: 1;
+                    cursor: grabbing;
+                    width: 44px;
+                    height: 44px;
+                    overflow: hidden;
+                    border-radius: 50%;
+
+                    .cylinder {
+                        width: 40px;
+                        height: 40px;
+                        border: solid 2px black;
+                        border-radius: 50%;
+                        background: red;
+                        overflow: hidden;
+                        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+                        position: relative;
+                        transition: box-shadow .2s;
+
+                        &.drop-in {
+                            animation: dropInBox .7s cubic-bezier(.4, 0, .2, 1) forwards;
+                        }
+                    }
+                }
+
+                .triangle-drag-wrapper {
+                    z-index: 1;
+                    cursor: grabbing;
+                    width: 44px;
+                    height: 24px;
+                    overflow: hidden;
+
+                    .triangle {
+                        cursor: grabbing;
+                        width: 40px;
+                        height: 20px;
+                        border: solid 2px black;
+                        background: red;
+                        z-index: 1;
+                        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+                        border-radius: 0;
+                        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+
+                        &.drop-in {
+                            animation: dropInBox .7s cubic-bezier(.4, 0, .2, 1) forwards;
+                        }
+                    }
+                }
+
+                @keyframes dropInBox {
+                    0% {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    80% {
+                        opacity: 1;
+                        transform: translateY(40px);
+                    }
+                    100% {
+                        opacity: 0;
+                        transform: translateY(60px) scale(.8);
+                    }
+                }
+            }
+
+            .drop-box-container {
+                height: 130px;
+                user-select: none;
+            }
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px;
+
+            .retry {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                border-radius: 4px;
+                padding: 4px;
+            }
+
+            .verify {
+                font-family: 'Press Start 2P', monospace;
+                font-size: 7px;
+                cursor: pointer;
+                padding: 8px 24px;
+                border-radius: 4px;
+                color: white;
+                background: rgba(53, 124, 249);
+            }
+        }
+    }
+}
