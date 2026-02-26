@@ -33,16 +33,16 @@ jobs:
 
       - name: Build Angular
         run: |
-          npm run build -- --configuration production --output-path=docs/browser --base-href /test-project/
+          npm run build -- --configuration production --base-href /angular-testing/
 
       - name: Copy index.html to 404.html (SPA routing)
         run: |
-          cp docs/browser/index.html docs/browser/404.html
+          cp dist/testProject/browser/index.html dist/testProject/browser/404.html
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/browser
+          path: dist/testProject/browser
 
   deploy:
     needs: build
