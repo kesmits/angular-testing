@@ -30,10 +30,6 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-            "outputPath": {
-              "base": "docs",
-              "browser": ""
-            },
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/assets",
